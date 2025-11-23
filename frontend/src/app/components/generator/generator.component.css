@@ -1,0 +1,9 @@
+.meme-text {
+  font-family: Impact, "Arial Black", sans-serif;
+  text-transform: uppercase;
+  color: white;
+  -webkit-text-stroke: 2px black;
+  text-stroke: 2px black;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+

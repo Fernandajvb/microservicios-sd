@@ -1,1 +1,97 @@
-<p>login works!</p>
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center p-4">
+  <div class="grid w-full max-w-6xl grid-cols-1 overflow-hidden rounded-lg bg-card-light dark:bg-card-dark shadow-2xl shadow-stone-400/10 dark:shadow-black/20 md:grid-cols-2">
+    
+    <!-- Sección izquierda con imagen -->
+    <div class="relative hidden h-full flex-col justify-end bg-[#fde047] p-10 md:flex">
+      <div class="absolute inset-0 z-0">
+        <div class="w-full h-full bg-center bg-no-repeat bg-cover" 
+             [attr.alt]="'Funny cat with glasses working on a laptop, meme style'"
+             [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuCSi8k-aH87SeSq63KNfM2q9jT5mSSLbNB_t1mwPwhzXpjYIyQkDk808XpDIJZIb2yBdLcKQuAJXCC8f3Qs1vQcU44knZknRw_Rt7nQiD7WdcKw7GMo9oSD7uhiVQrCESsCtQWScb8Mza7DIy81SL-RKD2OpbHx16E-aAoGuqevyoWAZE-EkDZa8UJtEjIl4erB-rfEBanYR5jWjr7srwkABVU8gK7S3vQPTJtJO0EyeNVzOmMrMjOxpckaPshDdLh6O76bcGJxd0U)'">
+        </div>
+      </div>
+      <div class="relative z-10 rounded bg-black/30 p-4 backdrop-blur-sm">
+        <h2 class="font-display text-3xl font-bold text-white">Genera, Comparte, Ríe.</h2>
+        <p class="mt-2 font-display text-base text-white/80">Únete a la comunidad más divertida de internet. Tu próximo meme viral está a solo un clic de distancia.</p>
+      </div>
+    </div>
+
+    <!-- Sección derecha con formulario -->
+    <div class="flex flex-col items-center justify-center p-8 sm:p-12 md:p-16">
+      <div class="w-full max-w-md">
+        <div class="mb-8 flex flex-col items-center text-center">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="material-symbols-outlined text-primary text-4xl">sentiment_very_satisfied</span>
+            <span class="text-2xl font-bold text-text-light dark:text-text-dark">Meme Generator</span>
+          </div>
+          <p class="text-4xl font-black leading-tight tracking-[-0.033em] text-text-light dark:text-text-dark">¡Bienvenido de nuevo!</p>
+          <p class="text-base font-normal text-subtle-text-light dark:text-subtle-text-dark">Inicia sesión para empezar a crear</p>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+          <!-- Campo de email/usuario -->
+          <div class="flex flex-col">
+            <label class="text-base font-medium leading-normal pb-2 text-text-light dark:text-text-dark" for="email">
+              Correo electrónico o nombre de usuario
+            </label>
+            <input 
+              [(ngModel)]="email"
+              name="email"
+              id="email"
+              type="email"
+              class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-light dark:border-border-dark bg-input-light dark:bg-input-dark h-12 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark px-4 text-base font-normal leading-normal" 
+              placeholder="Introduce tu correo o usuario"
+              required
+            />
+          </div>
+
+          <!-- Campo de contraseña -->
+          <div class="flex flex-col">
+            <label class="text-base font-medium leading-normal pb-2 text-text-light dark:text-text-dark" for="password">
+              Contraseña
+            </label>
+            <div class="relative flex w-full items-center">
+              <input 
+                [(ngModel)]="password"
+                name="password"
+                id="password"
+                [type]="showPassword ? 'text' : 'password'"
+                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-light dark:border-border-dark bg-input-light dark:bg-input-dark h-12 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark pl-4 pr-12 text-base font-normal leading-normal" 
+                placeholder="Introduce tu contraseña"
+                required
+              />
+              <button 
+                type="button"
+                (click)="togglePasswordVisibility()"
+                aria-label="Mostrar contraseña"
+                class="absolute inset-y-0 right-0 flex items-center justify-center px-4 text-subtle-text-light dark:text-subtle-text-dark hover:text-primary transition-colors"
+              >
+                <span class="material-symbols-outlined text-2xl">{{ showPassword ? 'visibility_off' : 'visibility' }}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Link de olvidé mi contraseña -->
+          <a class="text-right text-sm font-normal text-subtle-text-light dark:text-subtle-text-dark underline hover:text-primary transition-colors" href="#">
+            Olvidé mi contraseña
+          </a>
+
+          <!-- Botón de iniciar sesión -->
+          <button 
+            type="submit"
+            class="mt-4 flex h-12 w-full items-center justify-center rounded bg-primary px-6 text-base font-bold text-black transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark"
+          >
+            Iniciar Sesión
+          </button>
+        </form>
+
+        <!-- Link a registro -->
+        <p class="mt-8 text-center text-sm text-subtle-text-light dark:text-subtle-text-dark">
+          ¿Aún no tienes cuenta? 
+          <a routerLink="/register" class="font-semibold text-primary underline hover:text-primary/90 transition-colors">
+            Regístrate aquí
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
