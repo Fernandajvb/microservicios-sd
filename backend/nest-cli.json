@@ -1,74 +1,8 @@
 {
-  "monorepo": true,
-  "root": "apps/main",
-  "sourceRoot": "apps/main/src",
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
   "compilerOptions": {
-    "webpack": true,
-    "tsConfigPath": "apps/main/tsconfig.app.json"
-  },
-  "projects": {
-    "login-service": {
-      "type": "application",
-      "root": "apps/login-service",
-      "entryFile": "main",
-      "sourceRoot": "apps/login-service/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/login-service/tsconfig.app.json"
-      }
-    },
-    "main": {
-      "type": "application",
-      "root": "apps/main",
-      "entryFile": "main",
-      "sourceRoot": "apps/main/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/main/tsconfig.app.json"
-      }
-    },
-    "meme-service": {
-      "type": "application",
-      "root": "apps/meme-service",
-      "entryFile": "main",
-      "sourceRoot": "apps/meme-service/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/meme-service/tsconfig.app.json"
-      }
-    },
-    "meme-service-mirror": {
-      "type": "application",
-      "root": "apps/meme-service-mirror",
-      "entryFile": "main",
-      "sourceRoot": "apps/meme-service-mirror/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/meme-service-mirror/tsconfig.app.json"
-      }
-    },
-    "register-service": {
-      "type": "application",
-      "root": "apps/register-service",
-      "entryFile": "main",
-      "sourceRoot": "apps/register-service/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/register-service/tsconfig.app.json"
-      }
-    },
-    "template-service": {
-      "type": "application",
-      "root": "apps/template-service",
-      "entryFile": "main",
-      "sourceRoot": "apps/template-service/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/template-service/tsconfig.app.json"
-      }
-    },
-    "template-service-mirror": {
-      "type": "application",
-      "root": "apps/template-service-mirror",
-      "entryFile": "main",
-      "sourceRoot": "apps/template-service-mirror/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/template-service-mirror/tsconfig.app.json"
-      }
-    }
+    "deleteOutDir": true
   }
 }
