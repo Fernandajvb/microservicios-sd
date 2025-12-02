@@ -2,7 +2,7 @@
   <div class="flex h-full grow flex-col">
     <div class="flex flex-1 justify-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 py-5">
       <div class="flex flex-col max-w-[960px] flex-1">
-        
+
         <!-- TopNavBar -->
         <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-4 md:px-10 py-3">
           <div class="flex items-center gap-4 text-white">
@@ -19,7 +19,11 @@
               <a routerLink="/explore" class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors">Explorar</a>
               <a routerLink="/my-memes" class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors">Mis Memes</a>
             </nav>
-            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/50" 
+            <button (click)="logout()" class="flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 text-white px-4 py-2 text-sm font-medium transition-colors">
+              <span class="material-symbols-outlined text-base">logout</span>
+              <span>Cerrar sesión</span>
+            </button>
+            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/50"
                  [attr.alt]="'User avatar placeholder'"
                  [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuDgOrItSkfLu-McXDiNPwckzrjMbguBRY_7CCmgK4DL3ACYkOxbUysl-rzVtXYuaSb_0ppLAhqXftWbGc4GI5i0KvMNJBBbY2bcCKnoDTZ9bKwckMmUdiWYQnIF6eWGuf-SVrmziQ0ZHK8N4xtxvdfgB3-VHJ7ZqbOJqDm97E8FLO4vWSYu3ZWWA-9JYOsUmZaDSxYB_C6Kv7qwwHRTHz9laxqtWBGufwjhk84zoScI7txfCnqjXbTUN52la5jV1LaMHZ0z_kaF-mA)'">
             </div>
@@ -29,7 +33,7 @@
         <!-- HeroSection -->
         <div class="@container">
           <div class="flex flex-col gap-6 px-4 py-10 @[480px]:gap-8 @[864px]:flex-row @[864px]:items-center">
-            <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg @[480px]:h-auto @[480px]:min-w-[400px] @[864px]:w-full" 
+            <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg @[480px]:h-auto @[480px]:min-w-[400px] @[864px]:w-full"
                  [attr.alt]="'A funny illustrated image of a cat working on a laptop.'"
                  [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuAYJMvyKcr1-yzsSzyaYe2FG8etH53ptwp4DyIjIQ3d37G93XYiS27j33OBZKmquMOETgLonCIkd_zglES5Z0dRpZtt_PpnEixzirOX-nXUNsqG4Q5uXnMKLvfwpca6KHm7esIReMP-b7_zM1w3A8bQNXCdyLQhw7uHOTsCFdJYWX9rw-FTfN3fC7zheqqRYu0cJF5n3_NiUBvFMj0dcBmlj4tyHkM2AIiXhX18R4Cpwmhhe7GzzZG9X0Mh-sBMtWH_IeltK_0tBok)'">
             </div>
@@ -42,7 +46,7 @@
                   Usa nuestras plantillas o sube las tuyas para crear memes geniales en segundos.
                 </h2>
               </div>
-              <button routerLink="/generator" 
+              <button routerLink="/generator"
                       class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-primary text-background-dark text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em] hover:brightness-110 transition-all">
                 <span class="truncate">Crear Nuevo Meme</span>
               </button>
@@ -56,11 +60,11 @@
         <!-- Tabs -->
         <div class="pb-3">
           <div class="flex border-b border-white/10 px-4 gap-8">
-            <a (click)="setActiveTab('populares')" 
+            <a (click)="setActiveTab('populares')"
                [class]="activeTab === 'populares' ? 'flex flex-col items-center justify-center border-b-[3px] border-b-primary text-primary pb-[13px] pt-4 cursor-pointer' : 'flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-white/60 pb-[13px] pt-4 hover:text-white transition-colors cursor-pointer'">
               <p class="text-sm font-bold leading-normal tracking-[0.015em]">Populares</p>
             </a>
-            <a (click)="setActiveTab('recientes')" 
+            <a (click)="setActiveTab('recientes')"
                [class]="activeTab === 'recientes' ? 'flex flex-col items-center justify-center border-b-[3px] border-b-primary text-primary pb-[13px] pt-4 cursor-pointer' : 'flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-white/60 pb-[13px] pt-4 hover:text-white transition-colors cursor-pointer'">
               <p class="text-sm font-bold leading-normal tracking-[0.015em]">Recientes</p>
             </a>
@@ -69,207 +73,46 @@
 
         <!-- ImageGrid with Meme Cards -->
         <div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 p-4">
-          
-          <!-- Meme Card 1 -->
-          <div class="bg-background-dark/50 rounded flex flex-col gap-3 group">
-            <div class="bg-cover bg-center aspect-[4/5] rounded-t" 
-                 [attr.alt]="'Distracted boyfriend meme'"
-                 [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuAPWbDVtUV0wmfc2FRYtRCphCvKX_fDnZXMWLvuxRFXjIwZeCXiJztX4Une2Tinc4BpXaXOpHO5ZLMwGc2XgTn6tB6XdiBBUn9K8Ulg1wAGxDEJnqLVsIbxE0tbATRHuTc9hlAb8cb1VBdoXc-BTF_0SL0OARJaeU7bnYKeQlM079LOXqWlqP3iCEbcpPXDt5sW4NCFX3kNx8WmuWCINd-7yG2flj0Pyx3Vg0PuiaEj9zqrWpEhVhSu26e4yTmkacTx3X0uzzyiNxM)'">
-            </div>
-            <div class="p-4 pt-0 flex flex-col gap-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="size-6 rounded-full bg-cover bg-center" 
-                       [attr.alt]="'Avatar de Usuario1'"
-                       [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuCPBxwGMdut24y0WU0z-7hY72lPK-7ZZMNHHdYaLSf2o2yfPTsyz6obJKqLbUQ9m6JcGl-V9ggPcBC9_-nxXK383ksL1GB8USJSWgU59T5CWO718ydX7EnRViTzOv8No_9ODkSVNSCTFqh-kOlxLD0yMLvRLt22DZjfmdjtl0huZUCh-VlRFBi9F96QzGRZwpJS7skRxcd9sXjW0YNJuYYfNXaFJ7OfujPNt1h9XZoru7PE3cVpI80AKSAbN2VlJyhBnlkSxtCTl8Q)'">
+          @if (memes.length === 0) {
+            <div class="col-span-full text-white/70 text-sm">No hay memes aún.</div>
+          }
+          @for (meme of memes; track meme.idMeme) {
+            <div class="bg-background-dark/50 rounded flex flex-col gap-3 group overflow-hidden">
+              <div class="w-full h-64 bg-black/20 rounded-t overflow-hidden flex items-center justify-center">
+                <img
+                  class="max-w-full max-h-full object-contain"
+                  [alt]="meme.descripcion || 'Meme'"
+                  [src]="meme.imagen || meme.plantilla?.imagen || fallbackImage" />
+              </div>
+              <div class="p-4 pt-0 flex flex-col gap-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <div class="size-6 rounded-full bg-cover bg-center"
+                         [attr.alt]="'Avatar de ' + (meme.creador?.username || meme.creador?.nombre || 'Usuario')"
+                         [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuDgOrItSkfLu-McXDiNPwckzrjMbguBRY_7CCmgK4DL3ACYkOxbUysl-rzVtXYuaSb_0ppLAhqXftWbGc4GI5i0KvMNJBBbY2bcCKnoDTZ9bKwckMmUdiWYQnIF6eWGuf-SVrmziQ0ZHK8N4xtxvdfgB3-VHJ7ZqbOJqDm97E8FLO4vWSYu3ZWWA-9JYOsUmZaDSxYB_C6Kv7qwwHRTHz9laxqtWBGufwjhk84zoScI7txfCnqjXbTUN52la5jV1LaMHZ0z_kaF-mA)'">
+                    </div>
+                    <p class="text-white/70 text-xs font-medium">
+                      {{ meme.creador?.username || meme.creador?.nombre || 'Usuario' }}
+                    </p>
                   </div>
-                  <p class="text-white/70 text-xs font-medium">Usuario1</p>
-                </div>
-                <div class="flex items-center gap-1 text-white/70">
-                  <button class="p-1 rounded-full hover:bg-white/10 hover:text-white transition-colors">
+                  <div class="flex items-center gap-1 text-white/70">
                     <span class="material-symbols-outlined text-base">favorite</span>
-                  </button>
-                  <span class="text-xs">1.2k</span>
+                    <span class="text-xs">{{ meme.reacciones?.length || 0 }}</span>
+                  </div>
                 </div>
+                @if (meme.superior || meme.inferior) {
+                  <div class="text-white text-sm">
+                    @if (meme.superior) {
+                      <div>"{{ meme.superior }}"</div>
+                    }
+                    @if (meme.inferior) {
+                      <div>"{{ meme.inferior }}"</div>
+                    }
+                  </div>
+                }
               </div>
             </div>
-          </div>
-
-          <!-- Meme Card 2 -->
-          <div class="bg-background-dark/50 rounded flex flex-col gap-3 group">
-            <div class="bg-cover bg-center aspect-[4/5] rounded-t" 
-                 [attr.alt]="'Woman yelling at a cat meme'"
-                 [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuDPEXdAFn8unCi5j71ULuVqeKfNqmIwT5Kd2eEHESiarcT-nCVawJNAZHjR0d8MSr67LMlogXGsbOlXMKFJqdL00Ho8S7F55dMmt8beQyx9pxnpqM5OfGEctKaQNg5akZ2Hu-kR4qNQbBE01hj67a7o25TytjYfOKjlyDnshhPTVIrJqOHqvSxSMGkDnUnTqWlYUuTVo0XysjyyMHkmw962mEe3zad-e3a_hdT_mZbt7VPndHfmBojj5B-hJMdtnGQiGPUD5znjk7I)'">
-            </div>
-            <div class="p-4 pt-0 flex flex-col gap-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="size-6 rounded-full bg-cover bg-center" 
-                       [attr.alt]="'Avatar de Usuario2'"
-                       [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuBYer3whr9k6Ui286W6aFyVDZSdaYQ0YxKAubRHS6Zq2qLgB6qRvMbAUbKOydMZVJacVoEbL6bPEKUKrvp2JKfGbtd9ZZRlMyIYtYvE74eYo4tecJPlwGoy9wiyhpR2hl9lE7OJIOjWb3kfnyA0g54lJUQkHdyWb4MnhT9RowZcslkij-Q77g9SNsGr6ndA5nAyqxc6u1I98ITkA8vNt4v1Eda0e3MgzGplQL2f4SX1HAJIpWzC3N114s51EdyStW36wLYyiC0B67k)'">
-                  </div>
-                  <p class="text-white/70 text-xs font-medium">Usuario2</p>
-                </div>
-                <div class="flex items-center gap-1 text-white/70">
-                  <button class="p-1 rounded-full hover:bg-white/10 hover:text-white transition-colors">
-                    <span class="material-symbols-outlined text-base">favorite</span>
-                  </button>
-                  <span class="text-xs">980</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Meme Card 3 -->
-          <div class="bg-background-dark/50 rounded flex flex-col gap-3 group">
-            <div class="bg-cover bg-center aspect-[4/5] rounded-t" 
-                 [attr.alt]="'Drake hotline bling meme'"
-                 [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuDbvCwR2O8_dKrjGd6w4ESpPaaNdM7w8ZfpGwZLwz5TEo4qTBNyjpfoPD2nUzhXODQyx17sSKNawhmKyjT3CnTdFPZMLWlaO72G8IKFRDEgUPJMhPfrEbJ5rZ9PCQgrSDlf8nf4tFHPfwR32TAoARiRG9naM3z589twDReaaGB_wBy7RKiHcnD-4byG0rK1QM8MFSXyDk1G-OJu4LANJ5fyLu_zZQ-fB8PuyAryw0zn19Q4J-XgAoQOYwr8Rw-04vTH4wm69WxbMco)'">
-            </div>
-            <div class="p-4 pt-0 flex flex-col gap-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="size-6 rounded-full bg-cover bg-center" 
-                       [attr.alt]="'Avatar de Usuario3'"
-                       [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuD882GHTO02K9AEFJBNE-zE6xUEp4RY994MciBVgNEJbB4ooCtsqpKA5xML-_Beh5Nmfhsw5UmkTSkK_KQH8tg6mnjRbKbTNpFzqyfxJD9D7ZLlGufaP3xusScvKQfeKSyl4YZ0_mrGPxkC1bETM520EV-9enRxVuT-tRsxa_diDuFUJcpclfZCRKr6LyTS3HtxH5LUAXlAuJIeVBvyd--fHcQoiA-UdR7u9XXzDesko4N3SqFeeSZtldjMzE-QdCIzqGOhdFMzn9w)'">
-                  </div>
-                  <p class="text-white/70 text-xs font-medium">Usuario3</p>
-                </div>
-                <div class="flex items-center gap-1 text-white/70">
-                  <button class="p-1 rounded-full hover:bg-white/10 hover:text-white transition-colors">
-                    <span class="material-symbols-outlined text-base">favorite</span>
-                  </button>
-                  <span class="text-xs">854</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Meme Card 4 -->
-          <div class="bg-background-dark/50 rounded flex flex-col gap-3 group">
-            <div class="bg-cover bg-center aspect-[4/5] rounded-t" 
-                 [attr.alt]="'Surprised pikachu meme'"
-                 [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuDFMlQ1M6Fi68T6KPLml1qtoprR9HGCZgXKj43PKOtoFSPhgvOWwQLOTEEr6Aaiuswt8uYnkkoOq_42U8yJHXoV15LubbfZdmz1wECvLtWr5Lm9iNZpanWv7azomcDZbBF0vrR4-VyxWADQhy8oddtjvfNUyjT61WiYRoKXS_t6WsBKFucuAvg4moSgsyC2HAZgxchsJiY8Fry2te_dkqxhKSh3ScND6JctmsHENoMCShaM7j9cK5KliqxI2klOkOuBrW6SbzTaD40)'">
-            </div>
-            <div class="p-4 pt-0 flex flex-col gap-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="size-6 rounded-full bg-cover bg-center" 
-                       [attr.alt]="'Avatar de Usuario4'"
-                       [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuBuWRLBLcZNxSgWhIFZcCs0em5bPI8Z-uHBhCO5ZFr1mU9U2npFrClSvSMecpLvOVSSFvchsw82a2akWLoaQOfFErDhJhlYv5zO3eAEO6rAk_tUiNvqnRh9qay8rrQn1iGSpmNobPbTby7tlokVbMdjQzDPcgwy9LdPH2Z2QuqVDgcQP5Uiv7recJO9LWXdzywVtn0yPd6jIUa9Gx4xCOdmG_kbYELKVg1Y_pt-f9ejafaU3INIpDP8B6vicke_aHb7YZcGxeVxJIo)'">
-                  </div>
-                  <p class="text-white/70 text-xs font-medium">Usuario4</p>
-                </div>
-                <div class="flex items-center gap-1 text-white/70">
-                  <button class="p-1 rounded-full hover:bg-white/10 hover:text-white transition-colors">
-                    <span class="material-symbols-outlined text-base">favorite</span>
-                  </button>
-                  <span class="text-xs">712</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Meme Card 5 -->
-          <div class="bg-background-dark/50 rounded flex flex-col gap-3 group">
-            <div class="bg-cover bg-center aspect-[4/5] rounded-t" 
-                 [attr.alt]="'Dog in a burning house meme'"
-                 [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuCX98oIsfZ9aRFK9eP0apGJHtjembiJkqOOuUf-Y4d4_pzA36-cty1Ovi_TpRW8vWAxCovZmBva0yuGIbR2BH9x3KOLUUeooS0M9078vhLcxppHD-_hvlV5NUyrkTWVPjbL9IckKa5djT2iyBl3fQ4UZlyw47Z-iDHoeOM4Ca9QvEBiep-RrkGYBzs_bKQTRSVht9l_nmeug-t27F6MXVlAcRHQINOlFsiR9cZn742RiQQ1qC-SNikwhRlX64Z7EwpKNEfhLzk1rdI)'">
-            </div>
-            <div class="p-4 pt-0 flex flex-col gap-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="size-6 rounded-full bg-cover bg-center" 
-                       [attr.alt]="'Avatar de Usuario5'"
-                       [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuBleyKEX-MD4oQj9c_6BSmPVzmteXsMLyOrqXPwpUuiHfeqfNTP2x8J2d37K2kjP5vZxOBvZNyJPq7RCZzTGMk5kbPSlaVLe3785Zxp1-pTX1MqBYme8_K3gH0r7mUXC8KtZ0bWtu0QQjSKIHQjUG2-QFbzVKmF2OhhY8dWb0gIbXDwPcCD-l5LJstre40VAw9SQmdk5EHmxAgsKppD6d_n9A7f0smLZuKSGg6UObhfvm_pOZj8wPMxQWtNNZJQ80NTPsp_aSgDGz8)'">
-                  </div>
-                  <p class="text-white/70 text-xs font-medium">Usuario5</p>
-                </div>
-                <div class="flex items-center gap-1 text-white/70">
-                  <button class="p-1 rounded-full hover:bg-white/10 hover:text-white transition-colors">
-                    <span class="material-symbols-outlined text-base">favorite</span>
-                  </button>
-                  <span class="text-xs">633</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Meme Card 6 -->
-          <div class="bg-background-dark/50 rounded flex flex-col gap-3 group">
-            <div class="bg-cover bg-center aspect-[4/5] rounded-t" 
-                 [attr.alt]="'Grumpy cat meme'"
-                 [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuAKBYUhZJ6a_aSLp9zfU7uynn43K39dVlOFqZVmw5Il98VWIGmF9QM7eton5FpT99h6__HElXiijvGKV1gbilNUYbHq0lFVoLCvRTHidPCyn52r_jcGl_hwpTVcQhdY4f_LubzgyotXhNHhRIb-C9J13TCkLHz_0MYxxVE0URqR3WKCm_FNUOludwZilAUZ6FR6df--k9qQlAzSqj1FiTYPSSHcWL8laTNInIc1K8Jo72RH4yAX21tGGt--hP8JoOezMW7R1fYqa-Y)'">
-            </div>
-            <div class="p-4 pt-0 flex flex-col gap-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="size-6 rounded-full bg-cover bg-center" 
-                       [attr.alt]="'Avatar de Usuario6'"
-                       [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuD2cDu3E-HOozYlYBLimWN1JiAWV4l8rtkoVlSCmTTFjJEinL0pwpK9aAgz6j7jlf6LNxtURzr09MgIqjknkQ31lbzn4Y4lZCXGlsgK-Z59kV2aXh8ZGrKJ7Vmy2VSMPdN-3yaB0bJ2UnoBUpaElQ6_MTlmfID5BE-2BjTq8PIMzWYv5w5tDV1tKo_aByGKMpt_GMqwJQ9lIBKbOjyjBdvGnU6vQSc2NDQ__LMorPGkrdoW0hNOTggRb4w1TQBTrEmDFQTxVfRDnoQ)'">
-                  </div>
-                  <p class="text-white/70 text-xs font-medium">Usuario6</p>
-                </div>
-                <div class="flex items-center gap-1 text-white/70">
-                  <button class="p-1 rounded-full hover:bg-white/10 hover:text-white transition-colors">
-                    <span class="material-symbols-outlined text-base">favorite</span>
-                  </button>
-                  <span class="text-xs">598</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Meme Card 7 -->
-          <div class="bg-background-dark/50 rounded flex flex-col gap-3 group">
-            <div class="bg-cover bg-center aspect-[4/5] rounded-t" 
-                 [attr.alt]="'Success kid meme'"
-                 [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuDgq1NbYfd5bDNuPHtoQzxPbL4YzUC4ZpIpfdgrt1RSyVyIMXnt0aDo9zVZGSaKwawFXiUChkZgVYCzLIw_HqUo6pWajY9zp5F1mQKOOq6HITAnixMAzDzmlVW7V1AmQnZ7jUb5Sg6LdEX3QlEOagMt9Ok2h908bICHzEYCweNxAYANW8N64DNUfrrdG9XMUt7EBXyvXxvTD7hhoeuhuz7bYDiaQAkLfL-2BkfpLsSaUuT7-iK2yFvazdgPhcghA9BCIQ9cBBW6DQI)'">
-            </div>
-            <div class="p-4 pt-0 flex flex-col gap-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="size-6 rounded-full bg-cover bg-center" 
-                       [attr.alt]="'Avatar de Usuario7'"
-                       [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuDhWh05PePyniOMCoT6wwJphtsEF-1yxJt4lDEUi4VfnHXYeyXQPG3B9KMhaJkD4QWCyJo3NkkvaWMfcni9Jpk4VTce1NSEGq-ytB1sstX0GeiQ7IRhkccKTWtkk1EALDx3-pLwOZ0__0yEMQQVCwjtCkx2y3249b4wonA2VBHo9gwHYclzr2hYu7lSq9V-tMQNRRA6TXLafGk5LIh5c3lsG5KPMqij_xkdOrLhlEwM9KT3Kw7T1L-jiGI2iGurCSTgo49haSOdCpI)'">
-                  </div>
-                  <p class="text-white/70 text-xs font-medium">Usuario7</p>
-                </div>
-                <div class="flex items-center gap-1 text-white/70">
-                  <button class="p-1 rounded-full hover:bg-white/10 hover:text-white transition-colors">
-                    <span class="material-symbols-outlined text-base">favorite</span>
-                  </button>
-                  <span class="text-xs">501</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Meme Card 8 -->
-          <div class="bg-background-dark/50 rounded flex flex-col gap-3 group">
-            <div class="bg-cover bg-center aspect-[4/5] rounded-t" 
-                 [attr.alt]="'Mocking spongebob meme'"
-                 [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuBz08vdM3EknapglL1ml3IT3M4VpTMVMEOQSVtuY5AK5lqPQQRR_1bCRXLOVxxdKhSHynhn5zTLW1YJLC-80LVorEUIhWdFXAMN0_wd6zqFHRAwulhSYmo93LwBijKyha27BwXB4z5nqVibnsIBeREt5FnOasUqt5y9DTMLq2E0__GTjFOm7KYDExIigEJ6z9L7OEwlzmyzFsm1GkuNBYBdLSfaq19VBz-pslSj_BXaEb9-YkR0Nuq_WWZwU2QzG3BCMlBGdRbTkws)'">
-            </div>
-            <div class="p-4 pt-0 flex flex-col gap-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="size-6 rounded-full bg-cover bg-center" 
-                       [attr.alt]="'Avatar de Usuario8'"
-                       [style.background-image]="'url(https://lh3.googleusercontent.com/aida-public/AB6AXuDDFJUGh6W9GsHnLtJ9fJpxP28sUN80dnTPDZnBFb78iDnGHaLdPHSsjlv53e73qgNFBf1uSHPO9Iq8btMdyCx4z0Wi3HLL5H35mNON1Ads4wy6eMyMX-wCA_IfhbVgMlI_7cKZLZhvQ8ImEudQjHNAUQJ1Hcge0n9ANqztEszhClEyxJUXWF1WJr1aIlhP3NX0dCatwGpWpxGOa144M66ppvIfWyjtySExC6wZMBq4WlUbyq34cP1XqszAz0AexfFtTikXzTnqde4)'">
-                  </div>
-                  <p class="text-white/70 text-xs font-medium">Usuario8</p>
-                </div>
-                <div class="flex items-center gap-1 text-white/70">
-                  <button class="p-1 rounded-full hover:bg-white/10 hover:text-white transition-colors">
-                    <span class="material-symbols-outlined text-base">favorite</span>
-                  </button>
-                  <span class="text-xs">420</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          }
         </div>
       </div>
     </div>

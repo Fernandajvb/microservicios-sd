@@ -1,44 +1,49 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';
+import { MemeService } from '../../services/meme.service';
 
 @Component({
   selector: 'app-generator',
   imports: [FormsModule, RouterLink],
   templateUrl: './generator.component.html',
-  styleUrl: './generator.component.css'
+  styleUrl: './generator.component.css',
 })
 export class GeneratorComponent {
   selectedImage: string | null = null;
   topText: string = '';
   bottomText: string = '';
+  isProcessing: boolean = false;
+
+  constructor(private memeService: MemeService) {}
 
   templates = [
     {
       id: 1,
-      url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDcHESPEpGcviEbjlhorNyonwI_qNTST5o2uo_onGuEvsruM3wLyzCbtFo4fgEvrt2tDrJng5xiZ3hdwiilylQUJsKeipMeLrFt9-ila3VXXuF8mYWHid093UVd8CbGcpdEabyytDBkh93evtXQLIOnyEoy5_zZ7KyOw90MnCFVy1gEZGQq98aVR-ymrf5UCGwcg0xXCkBxrl-p0EP-bGyM2-qcW8oln4Gsu-sLZsAIEy3VrKFBScEapOUfTs5S70vqN9LAVOxD0TM',
-      alt: 'Meme template 1'
+      url: 'https://0.academia-photos.com/7945796/14743690/15558269/s200_diego.aracena-pizarro.jpg',
+      alt: 'Meme template 1',
     },
     {
       id: 2,
-      url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDjPyzG7xZ6kbj3xxemiwLImEpUr5621nRludAOXZ6WZwrKk06XowfIzhUuesTh7TqNAg4JJsK7WOMZZ37DuSlaKoVoyoWJZCwWYwTIdg-QnrbNyLWjdsJ4sJhOa4cvnngstQA_bwDR3LEk6kSXwN3npLplcSgo6h6Q300wflwA21wj4m4oEMwhgk4V2MNVQ_YkkMmhTCXEHPskkgATpbq3xJN_J4HlbXhnYw4GP74kv_c8TC1n7_rit_olzpxz81AkG2uJwNjIPnU',
-      alt: 'Meme template 2'
+      url: 'https://i1.rgstatic.net/ii/profile.image/1086852362702854-1636137204547_Q512/Humberto-Urrutia-2.jpg',
+      alt: 'Meme template 2',
     },
     {
       id: 3,
-      url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAtDHDj8l_LmsOxvFm1z0HNb4nXU7Ve-5HYNUlE45lpdg--EScT9Z7tQyfsgSdocMf6gKAb1IAepvnWhT2GE_1X-m8HlgqYy5-16lJYgpPKezZHp0a1n8pTAB08PFrSIHU2mReQb7sLI3Fd_fHItDTZdAXeeyaUj3TlULgZEN9lgoGuCO7Ltox2gS0fM--ty3g9QfXYqG0g25K6-AnOZvmULjSFmXOE59pZ7MyxGbVCAMv1Un-fnaL9Zbw64qDsrnRrsTUrhDiBSxE',
-      alt: 'Meme template 3'
+      url: 'https://investigadores.uta.cl/files-asset/6815014/10696614-1.jpg?w=160&f=jpg',
+      alt: 'Meme template 3',
     },
     {
       id: 4,
-      url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCjRfuE_ZoU62dt98GH_mzh6Ul8LK4ueqwynWgBQOwW1hDfzasscF63fYp2rvCiIBtFjWTZLCZum9WmzDqNun8Rk1ZoUG9-I8eNiJjKcMwqgqkVtz9cYJaLwgTa24c_inq-2DHer9uL-um-l-U4hvHMyjxdye7VIR3LqygxqJGiIFDrT1drFqQln77Ukh2jHviK3YiGnLKSfQpiya5kRhafA2oPJZHcjG_gtpOMkGqyUnZQRkfvhunnG5ucK4wi2Khfuy27yoEuedQ',
-      alt: 'Meme template 4'
+      url: 'https://avatars.githubusercontent.com/u/88569177?v=4',
+      alt: 'Meme template 4',
     },
     {
       id: 5,
-      url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB6Vhqk1kiB3GGyUfqcEm2gaIIl_aZNm8ygouNV_7mBSUyrxE3C3zh4uBXC__2RpazBySjshTGeSXL79qYto0LOPQDUtt0uKST0HtVLcppXf6-u2yg6N_OMoFPHZH0UGQu-gB7WXTjUGgNQoHOqc8oNhF_TkTSpn7FjO7vQzZhqiYPiZrERRpMzxxxHLuA_TQKbVBLVWfPtOz9v0Hm7ygJgXm97M1U51JbVKF49PsKOd8u0r0LDt9f9okfFwJNWbkDlKppBp-K14Bk',
-      alt: 'Meme template 5'
-    }
+      url: 'https://investigadores.uta.cl/files-asset/6815197/07717839-2.jpg/',
+      alt: 'Meme template 5',
+    },
   ];
 
   selectTemplate(template: any): void {
@@ -46,26 +51,220 @@ export class GeneratorComponent {
   }
 
   saveAndDownload(): void {
-    // Aquí irá la lógica para guardar y descargar
-    console.log('Guardar y descargar:', {
-      image: this.selectedImage,
-      topText: this.topText,
-      bottomText: this.bottomText
+    if (!this.selectedImage) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Selecciona una imagen',
+        text: 'Elige una plantilla antes de guardar',
+        allowOutsideClick: false,
+      });
+      return;
+    }
+
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    if (!user?.idUsuario) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Inicia sesión',
+        text: 'Debes iniciar sesión para guardar memes',
+        allowOutsideClick: false,
+      });
+      return;
+    }
+
+    this.isProcessing = true;
+    Swal.fire({
+      title: 'Guardando y descargando...',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      didOpen: () => Swal.showLoading(),
     });
+
+    this.memeService
+      .createMeme({
+        idUsuario: user.idUsuario,
+        selectedImage: this.selectedImage,
+        imagen: this.selectedImage,
+        topText: this.topText,
+        bottomText: this.bottomText,
+        superior: this.topText,
+        inferior: this.bottomText,
+        estado: 'publicado',
+        idPlantilla: null,
+      })
+      .subscribe({
+        next: async () => {
+          await this.generateAndDownloadImage();
+          Swal.fire({
+            icon: 'success',
+            title: 'Meme guardado',
+            text: 'Tu meme se guardó y se descargará ahora',
+            allowOutsideClick: false,
+          });
+        },
+        error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo guardar',
+            text:
+              err?.error?.message ??
+              'Ocurrió un error al guardar el meme. Intenta más tarde.',
+            allowOutsideClick: false,
+          });
+          console.error('Error al guardar meme', err);
+        },
+        complete: () => {
+          this.isProcessing = false;
+        },
+      });
   }
 
   downloadOnly(): void {
-    // Aquí irá la lógica para solo descargar
-    console.log('Solo descargar:', {
-      image: this.selectedImage,
-      topText: this.topText,
-      bottomText: this.bottomText
-    });
+    if (!this.selectedImage) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Selecciona una imagen',
+        text: 'Elige una plantilla antes de descargar',
+        allowOutsideClick: false,
+      });
+      return;
+    }
+    this.generateAndDownloadImage();
   }
 
   cancel(): void {
     this.selectedImage = null;
     this.topText = '';
     this.bottomText = '';
+  }
+
+  private async generateAndDownloadImage(): Promise<void> {
+    if (!this.selectedImage) return;
+    try {
+      const dataUrl = await this.fetchImageAsDataUrl(this.selectedImage);
+
+      const img = new Image();
+      img.src = dataUrl;
+
+      await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = () => reject(new Error('No se pudo cargar la imagen'));
+      });
+
+      const canvas = document.createElement('canvas');
+      const targetWidth = 800;
+      const targetHeight = 800;
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('No se pudo crear el contexto de canvas');
+
+      // Fondo negro
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, targetWidth, targetHeight);
+
+      // Dibujar imagen con "contain"
+      const scale = Math.min(targetWidth / img.width, targetHeight / img.height);
+      const drawWidth = img.width * scale;
+      const drawHeight = img.height * scale;
+      const dx = (targetWidth - drawWidth) / 2;
+      const dy = (targetHeight - drawHeight) / 2;
+      ctx.drawImage(img, dx, dy, drawWidth, drawHeight);
+
+      const drawWrappedText = (
+        text: string,
+        centerY: number,
+        fromTop: boolean,
+      ) => {
+        const maxWidth = canvas.width * 0.9;
+        let fontSize = Math.max(32, canvas.width / 12);
+
+        const setFont = () => {
+          ctx.font = `${fontSize}px Impact, Arial, sans-serif`;
+          ctx.fillStyle = 'white';
+          ctx.strokeStyle = 'black';
+          ctx.lineWidth = Math.max(4, canvas.width / 200);
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+        };
+
+        // Reduce font size until lines fit
+        const words = text.split(' ');
+        let lines: string[] = [];
+        const buildLines = () => {
+          lines = [];
+          let current = '';
+          for (const word of words) {
+            const test = current ? `${current} ${word}` : word;
+            if (ctx.measureText(test).width > maxWidth && current) {
+              lines.push(current);
+              current = word;
+            } else {
+              current = test;
+            }
+          }
+          if (current) lines.push(current);
+        };
+
+        setFont();
+        buildLines();
+        while (
+          lines.some((line) => ctx.measureText(line).width > maxWidth) &&
+          fontSize > 16
+        ) {
+          fontSize -= 2;
+          setFont();
+          buildLines();
+        }
+
+        const lineHeight = fontSize * 1.1;
+        const totalHeight = lines.length * lineHeight;
+        let startY = centerY;
+        if (!fromTop) {
+          startY = centerY - totalHeight + lineHeight;
+        }
+
+        lines.forEach((line, idx) => {
+          const y = fromTop ? startY + idx * lineHeight : startY + idx * lineHeight;
+          ctx.strokeText(line, canvas.width / 2, y);
+          ctx.fillText(line, canvas.width / 2, y);
+        });
+      };
+
+      if (this.topText) {
+        drawWrappedText(this.topText, canvas.height * 0.1, true);
+      }
+      if (this.bottomText) {
+        drawWrappedText(this.bottomText, canvas.height * 0.9, false);
+      }
+
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/png');
+      link.download = 'meme.png';
+      link.click();
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al descargar',
+        text:
+          'No se pudo generar la imagen para descargar. Usa plantillas con CORS abierto o intenta con otra URL.',
+      });
+      console.error('Error generando imagen', error);
+    }
+  }
+
+  private async fetchImageAsDataUrl(url: string): Promise<string> {
+    // Se usa un proxy en el backend para evitar problemas de CORS al descargar la plantilla
+    const blob = await this.memeService
+      .fetchImageBlob(url)
+      .toPromise()
+      .then((b) => b as Blob);
+    return await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
   }
 }
