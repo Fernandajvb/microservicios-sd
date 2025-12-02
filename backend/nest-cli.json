@@ -1,73 +1,85 @@
 {
-  "monorepo": true,
-  "root": "apps/main",
-  "sourceRoot": "apps/main/src",
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/backend/src",
   "compilerOptions": {
+    "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/main/tsconfig.app.json"
+    "tsConfigPath": "apps/backend/tsconfig.app.json"
   },
+  "monorepo": true,
+  "root": "apps/backend",
   "projects": {
-    "login-service": {
+    "auth": {
       "type": "application",
-      "root": "apps/login-service",
+      "root": "apps/auth",
       "entryFile": "main",
-      "sourceRoot": "apps/login-service/src",
+      "sourceRoot": "apps/auth/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/login-service/tsconfig.app.json"
+        "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
     },
-    "main": {
+    "backend": {
       "type": "application",
-      "root": "apps/main",
+      "root": "apps/backend",
       "entryFile": "main",
-      "sourceRoot": "apps/main/src",
+      "sourceRoot": "apps/backend/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/main/tsconfig.app.json"
+        "tsConfigPath": "apps/backend/tsconfig.app.json"
       }
     },
-    "meme-service": {
+    "meme": {
       "type": "application",
-      "root": "apps/meme-service",
+      "root": "apps/meme",
       "entryFile": "main",
-      "sourceRoot": "apps/meme-service/src",
+      "sourceRoot": "apps/meme/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/meme-service/tsconfig.app.json"
+        "tsConfigPath": "apps/meme/tsconfig.app.json"
       }
     },
-    "meme-service-mirror": {
+    "memes": {
       "type": "application",
-      "root": "apps/meme-service-mirror",
+      "root": "apps/memes",
       "entryFile": "main",
-      "sourceRoot": "apps/meme-service-mirror/src",
+      "sourceRoot": "apps/memes/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/meme-service-mirror/tsconfig.app.json"
+        "tsConfigPath": "apps/memes/tsconfig.app.json"
       }
     },
-    "register-service": {
+    "memes_mirror": {
       "type": "application",
-      "root": "apps/register-service",
+      "root": "apps/memes_mirror",
       "entryFile": "main",
-      "sourceRoot": "apps/register-service/src",
+      "sourceRoot": "apps/memes_mirror/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/register-service/tsconfig.app.json"
+        "tsConfigPath": "apps/memes_mirror/tsconfig.app.json"
       }
     },
-    "template-service": {
+    "plantillas": {
       "type": "application",
-      "root": "apps/template-service",
+      "root": "apps/plantillas",
       "entryFile": "main",
-      "sourceRoot": "apps/template-service/src",
+      "sourceRoot": "apps/plantillas/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/template-service/tsconfig.app.json"
+        "tsConfigPath": "apps/plantillas/tsconfig.app.json"
       }
     },
-    "template-service-mirror": {
+    "plantillas_mirror": {
       "type": "application",
-      "root": "apps/template-service-mirror",
+      "root": "apps/plantillas_mirror",
       "entryFile": "main",
-      "sourceRoot": "apps/template-service-mirror/src",
+      "sourceRoot": "apps/plantillas_mirror/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/template-service-mirror/tsconfig.app.json"
+        "tsConfigPath": "apps/plantillas_mirror/tsconfig.app.json"
+      }
+    },
+    "users": {
+      "type": "application",
+      "root": "apps/users",
+      "entryFile": "main",
+      "sourceRoot": "apps/users/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/users/tsconfig.app.json"
       }
     }
   }
