@@ -1,0 +1,57 @@
+datasource db {
+  provider = "mysql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Usuario {
+  idUsuario  Int      @id @default(autoincrement())
+  nombre     String
+  username   String   @unique
+  correo     String   @unique
+  contrasena String
+
+  memesCreados Meme[]   @relation("CreadorMeme")
+  reacciones   Reaccion[]
+}
+
+model Meme {
+  idMeme      Int      @id @default(autoincrement())
+  descripcion String?
+  superior    String?
+  inferior    String?
+  estado      String?
+  fecha       DateTime @default(now())
+  imagen      String?  @db.Text
+
+  idUsuario Int
+  creador   Usuario @relation("CreadorMeme", fields: [idUsuario], references: [idUsuario])
+
+  idPlantilla Int?
+  plantilla   Plantilla_meme? @relation(fields: [idPlantilla], references: [idPlantilla])
+
+  reacciones Reaccion[]
+}
+
+model Plantilla_meme {
+  idPlantilla Int    @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  imagen      String
+
+  memes Meme[]
+}
+
+model Reaccion {
+  idReaccion Int      @id @default(autoincrement())
+  tipo       String
+  fecha      DateTime @default(now())
+
+  idUsuario Int
+  usuario   Usuario @relation(fields: [idUsuario], references: [idUsuario])
+
+  idMeme Int
+  meme   Meme @relation(fields: [idMeme], references: [idMeme])
+}
