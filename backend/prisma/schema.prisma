@@ -1,5 +1,6 @@
 datasource db {
   provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -13,7 +14,7 @@ model Usuario {
   correo     String   @unique
   contrasena String
 
-  memesCreados Meme[]   @relation("CreadorMeme")
+  memesCreados Meme[]     @relation("CreadorMeme")
   reacciones   Reaccion[]
 }
 
