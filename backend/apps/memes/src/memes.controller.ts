@@ -65,4 +65,25 @@ export class MemesController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.memesService.remove(id);
   }
+
+  @Post(':id/like')
+  toggleLike(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() data: { idUsuario: number },
+  ) {
+    return this.memesService.toggleLike(id, data.idUsuario);
+  }
+
+  @Get(':id/liked/:idUsuario')
+  hasUserLiked(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('idUsuario', ParseIntPipe) idUsuario: number,
+  ) {
+    return this.memesService.hasUserLiked(id, idUsuario);
+  }
+
+  @Get('likes/:idUsuario')
+  getUserLikes(@Param('idUsuario', ParseIntPipe) idUsuario: number) {
+    return this.memesService.getUserLikes(idUsuario);
+  }
 }

@@ -17,7 +17,35 @@
       <p class="text-[#37352F] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Crea tu Cuenta</p>
     </div>
 
-    <form (ngSubmit)="onSubmit()" class="space-y-6">
+    <form (ngSubmit)="onSubmit()" class="space-y-5">
+      <!-- Mensaje de error -->
+      <div *ngIf="errorMessage" class="p-3 rounded bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Mensaje de éxito -->
+      <div *ngIf="successMessage" class="p-3 rounded bg-green-500/10 border border-green-500/30 text-green-400 text-sm">
+        {{ successMessage }}
+      </div>
+
+      <!-- Nombre completo -->
+      <div class="flex flex-col">
+        <label class="flex flex-col min-w-40 flex-1">
+          <p class="text-[#37352F] dark:text-white text-base font-medium leading-normal pb-2">Nombre completo</p>
+          <div class="relative flex w-full flex-1 items-center">
+            <span class="material-symbols-outlined absolute left-4 text-zinc-500 dark:text-[#bab29c]">badge</span>
+            <input 
+              [(ngModel)]="nombre"
+              name="nombre"
+              class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-zinc-300 dark:border-[#544e3b] bg-white dark:bg-[#27241b] focus:border-primary/50 h-14 placeholder:text-zinc-400 dark:placeholder:text-[#bab29c] pl-12 pr-4 text-base font-normal leading-normal text-black dark:text-white" 
+              placeholder="Ingresa tu nombre completo" 
+              required
+              [disabled]="isLoading"
+            />
+          </div>
+        </label>
+      </div>
+
       <!-- Nombre de usuario -->
       <div class="flex flex-col">
         <label class="flex flex-col min-w-40 flex-1">
@@ -30,6 +58,7 @@
               class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-zinc-300 dark:border-[#544e3b] bg-white dark:bg-[#27241b] focus:border-primary/50 h-14 placeholder:text-zinc-400 dark:placeholder:text-[#bab29c] pl-12 pr-4 text-base font-normal leading-normal text-black dark:text-white" 
               placeholder="Ingresa tu nombre de usuario" 
               required
+              [disabled]="isLoading"
             />
           </div>
         </label>
@@ -48,6 +77,7 @@
               class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-zinc-300 dark:border-[#544e3b] bg-white dark:bg-[#27241b] focus:border-primary/50 h-14 placeholder:text-zinc-400 dark:placeholder:text-[#bab29c] pl-12 pr-4 text-base font-normal leading-normal text-black dark:text-white" 
               placeholder="tu@email.com" 
               required
+              [disabled]="isLoading"
             />
           </div>
         </label>
@@ -64,8 +94,9 @@
               name="password"
               [type]="showPassword ? 'text' : 'password'"
               class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-zinc-300 dark:border-[#544e3b] bg-white dark:bg-[#27241b] focus:border-primary/50 h-14 placeholder:text-zinc-400 dark:placeholder:text-[#bab29c] pl-12 pr-12 text-base font-normal leading-normal text-black dark:text-white" 
-              placeholder="Ingresa tu contraseña" 
+              placeholder="Mínimo 6 caracteres" 
               required
+              [disabled]="isLoading"
             />
             <button 
               type="button"
@@ -88,10 +119,18 @@
               [(ngModel)]="confirmPassword"
               name="confirmPassword"
               [type]="showConfirmPassword ? 'text' : 'password'"
-              class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-zinc-300 dark:border-[#544e3b] bg-white dark:bg-[#27241b] focus:border-primary/50 h-14 placeholder:text-zinc-400 dark:placeholder:text-[#bab29c] pl-12 pr-4 text-base font-normal leading-normal text-black dark:text-white" 
+              class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-zinc-300 dark:border-[#544e3b] bg-white dark:bg-[#27241b] focus:border-primary/50 h-14 placeholder:text-zinc-400 dark:placeholder:text-[#bab29c] pl-12 pr-12 text-base font-normal leading-normal text-black dark:text-white" 
               placeholder="Confirma tu contraseña" 
               required
+              [disabled]="isLoading"
             />
+            <button 
+              type="button"
+              (click)="toggleConfirmPasswordVisibility()"
+              class="absolute right-4 text-zinc-500 dark:text-[#bab29c] hover:text-zinc-700 dark:hover:text-zinc-300"
+            >
+              <span class="material-symbols-outlined">{{ showConfirmPassword ? 'visibility_off' : 'visibility' }}</span>
+            </button>
           </div>
         </label>
       </div>
@@ -99,9 +138,17 @@
       <!-- Botón de registro -->
       <button 
         type="submit"
-        class="flex w-full items-center justify-center rounded bg-primary h-14 px-6 text-base font-bold text-black hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-background-light dark:focus:ring-offset-background-dark transition-colors"
+        [disabled]="isLoading"
+        class="flex w-full items-center justify-center rounded bg-primary h-14 px-6 text-base font-bold text-black hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-background-light dark:focus:ring-offset-background-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Registrarse
+        <span *ngIf="!isLoading">Registrarse</span>
+        <span *ngIf="isLoading" class="flex items-center gap-2">
+          <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Creando cuenta...
+        </span>
       </button>
     </form>
 

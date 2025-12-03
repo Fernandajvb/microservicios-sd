@@ -24,13 +24,19 @@ export class PlantillasController {
     return this.plantillasService.findOne(id);
   }
 
+  @Get('user/:idUsuario')
+  findByUser(@Param('idUsuario', ParseIntPipe) idUsuario: number) {
+    return this.plantillasService.findByUser(idUsuario);
+  }
+
   @Post()
   create(
     @Body()
     data: {
       nombre: string;
-      descripcion: string;
+      descripcion?: string;
       imagen: string;
+      idUsuario: number;
     },
   ) {
     return this.plantillasService.create(data);

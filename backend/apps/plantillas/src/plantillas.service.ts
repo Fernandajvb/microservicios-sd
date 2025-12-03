@@ -1,25 +1,39 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '@app/prisma';
-import { Plantilla_meme } from '@prisma/client';
 
 @Injectable()
 export class PlantillasService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(): Promise<Plantilla_meme[]> {
+  async findAll() {
     return this.prisma.plantilla_meme.findMany({
       include: {
+        creador: {
+          select: {
+            idUsuario: true,
+            nombre: true,
+            username: true,
+          },
+        },
         _count: {
           select: { memes: true },
         },
       },
+      orderBy: { fecha: 'desc' },
     });
   }
 
-  async findOne(id: number): Promise<Plantilla_meme> {
+  async findOne(id: number) {
     const plantilla = await this.prisma.plantilla_meme.findUnique({
       where: { idPlantilla: id },
       include: {
+        creador: {
+          select: {
+            idUsuario: true,
+            nombre: true,
+            username: true,
+          },
+        },
         memes: {
           take: 10,
           orderBy: { fecha: 'desc' },
@@ -32,12 +46,41 @@ export class PlantillasService {
     return plantilla;
   }
 
+  async findByUser(idUsuario: number) {
+    return this.prisma.plantilla_meme.findMany({
+      where: { idUsuario },
+      include: {
+        _count: {
+          select: { memes: true },
+        },
+      },
+      orderBy: { fecha: 'desc' },
+    });
+  }
+
   async create(data: {
     nombre: string;
-    descripcion: string;
+    descripcion?: string;
     imagen: string;
-  }): Promise<Plantilla_meme> {
-    return this.prisma.plantilla_meme.create({ data });
+    idUsuario: number;
+  }) {
+    return this.prisma.plantilla_meme.create({
+      data: {
+        nombre: data.nombre,
+        descripcion: data.descripcion || '',
+        imagen: data.imagen,
+        idUsuario: data.idUsuario,
+      },
+      include: {
+        creador: {
+          select: {
+            idUsuario: true,
+            nombre: true,
+            username: true,
+          },
+        },
+      },
+    });
   }
 
   async update(
@@ -47,15 +90,24 @@ export class PlantillasService {
       descripcion: string;
       imagen: string;
     }>,
-  ): Promise<Plantilla_meme> {
+  ) {
     await this.findOne(id);
     return this.prisma.plantilla_meme.update({
       where: { idPlantilla: id },
       data,
+      include: {
+        creador: {
+          select: {
+            idUsuario: true,
+            nombre: true,
+            username: true,
+          },
+        },
+      },
     });
   }
 
-  async remove(id: number): Promise<Plantilla_meme> {
+  async remove(id: number) {
     await this.findOne(id);
     return this.prisma.plantilla_meme.delete({
       where: { idPlantilla: id },

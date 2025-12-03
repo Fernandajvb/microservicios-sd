@@ -28,6 +28,11 @@
         </div>
 
         <form (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+          <!-- Mensaje de error -->
+          <div *ngIf="errorMessage" class="p-3 rounded bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+            {{ errorMessage }}
+          </div>
+
           <!-- Campo de email/usuario -->
           <div class="flex flex-col">
             <label class="text-base font-medium leading-normal pb-2 text-text-light dark:text-text-dark" for="email">
@@ -37,10 +42,11 @@
               [(ngModel)]="email"
               name="email"
               id="email"
-              type="email"
+              type="text"
               class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-light dark:border-border-dark bg-input-light dark:bg-input-dark h-12 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark px-4 text-base font-normal leading-normal" 
               placeholder="Introduce tu correo o usuario"
               required
+              [disabled]="isLoading"
             />
           </div>
 
@@ -58,6 +64,7 @@
                 class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-text-light dark:text-text-dark focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-border-light dark:border-border-dark bg-input-light dark:bg-input-dark h-12 placeholder:text-subtle-text-light dark:placeholder:text-subtle-text-dark pl-4 pr-12 text-base font-normal leading-normal" 
                 placeholder="Introduce tu contraseña"
                 required
+                [disabled]="isLoading"
               />
               <button 
                 type="button"
@@ -78,9 +85,17 @@
           <!-- Botón de iniciar sesión -->
           <button 
             type="submit"
-            class="mt-4 flex h-12 w-full items-center justify-center rounded bg-primary px-6 text-base font-bold text-black transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark"
+            [disabled]="isLoading"
+            class="mt-4 flex h-12 w-full items-center justify-center rounded bg-primary px-6 text-base font-bold text-black transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background-light dark:focus:ring-offset-background-dark disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Iniciar Sesión
+            <span *ngIf="!isLoading">Iniciar Sesión</span>
+            <span *ngIf="isLoading" class="flex items-center gap-2">
+              <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Iniciando...
+            </span>
           </button>
         </form>
 

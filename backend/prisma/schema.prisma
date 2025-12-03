@@ -14,8 +14,9 @@ model Usuario {
   correo     String   @unique
   contrasena String
 
-  memesCreados Meme[]     @relation("CreadorMeme")
-  reacciones   Reaccion[]
+  memesCreados       Meme[]           @relation("CreadorMeme")
+  plantillasCreadas  Plantilla_meme[] @relation("CreadorPlantilla")
+  reacciones         Reaccion[]
 }
 
 model Meme {
@@ -37,10 +38,14 @@ model Meme {
 }
 
 model Plantilla_meme {
-  idPlantilla Int    @id @default(autoincrement())
+  idPlantilla Int      @id @default(autoincrement())
   nombre      String
-  descripcion String
-  imagen      String
+  descripcion String?
+  imagen      String   @db.Text
+  fecha       DateTime @default(now())
+
+  idUsuario Int
+  creador   Usuario @relation("CreadorPlantilla", fields: [idUsuario], references: [idUsuario])
 
   memes Meme[]
 }

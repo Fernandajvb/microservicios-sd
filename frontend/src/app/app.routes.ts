@@ -3,10 +3,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { GeneratorComponent } from './components/generator/generator.component';
+import { MyMemesComponent } from './components/my-memes/my-memes.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'generator', component: GeneratorComponent },
+  { path: 'my-memes', component: MyMemesComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

@@ -1,0 +1,146 @@
+<div class="relative flex min-h-screen w-full flex-col">
+  <div class="flex h-full grow flex-col">
+    <div class="flex flex-1 justify-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 py-5">
+      <div class="flex flex-col max-w-[960px] flex-1">
+        
+        <!-- TopNavBar -->
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-4 md:px-10 py-3">
+          <div class="flex items-center gap-4 text-white">
+            <a routerLink="/" class="flex items-center gap-4 hover:opacity-80 transition-opacity">
+              <div class="size-6 text-primary">
+                <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"></path>
+                </svg>
+              </div>
+              <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">MemeGen</h2>
+            </a>
+            <!-- Indicador de estado de servicios -->
+            <app-service-status></app-service-status>
+          </div>
+          <div class="flex flex-1 justify-end items-center gap-6 md:gap-8">
+            <nav class="hidden md:flex items-center gap-9">
+              <a routerLink="/generator" class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors">Generador</a>
+              <a routerLink="/home" class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors">Explorar</a>
+              <a routerLink="/my-memes" class="text-primary text-sm font-medium leading-normal">Mis Memes</a>
+            </nav>
+            <div class="flex items-center gap-2">
+              <span class="text-white/70 text-sm hidden sm:block">{{ currentUser?.nombre }}</span>
+              <div class="bg-primary/20 text-primary flex items-center justify-center rounded-full size-10 border-2 border-primary/50 font-bold">
+                {{ getInitial(currentUser?.nombre) }}
+              </div>
+            </div>
+            <button (click)="logout()" class="p-2 rounded-full hover:bg-white/10 text-white/70 hover:text-red-400 transition-colors" title="Cerrar sesión">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <!-- Page Title -->
+        <div class="flex items-center justify-between px-4 py-6">
+          <div>
+            <h1 class="text-white text-3xl font-bold leading-tight tracking-[-0.015em]">Mis Memes</h1>
+            <p class="text-white/60 text-sm mt-1">Todos los memes que has creado</p>
+          </div>
+          <a routerLink="/generator" class="flex items-center gap-2 px-4 py-2 bg-primary text-black font-bold rounded-full hover:bg-primary/90 transition-colors">
+            <span class="material-symbols-outlined text-lg">add</span>
+            Crear Nuevo
+          </a>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="mx-4 p-3 rounded bg-red-500/10 border border-red-500/30 text-red-400 text-sm mb-4">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Loading -->
+        <div *ngIf="isLoading" class="flex justify-center items-center py-12">
+          <svg class="animate-spin h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </div>
+
+        <!-- Sin memes -->
+        <div *ngIf="!isLoading && memes.length === 0" class="flex flex-col items-center justify-center py-16 text-center">
+          <span class="material-symbols-outlined text-7xl text-white/20 mb-4">collections</span>
+          <p class="text-white/70 text-xl mb-2">Aún no has creado ningún meme</p>
+          <p class="text-white/50 text-sm mb-6">¡Es hora de mostrar tu creatividad!</p>
+          <a routerLink="/generator" class="px-8 py-3 bg-primary text-black font-bold rounded-full hover:bg-primary/90 transition-colors text-lg">
+            Crear mi primer meme
+          </a>
+        </div>
+
+        <!-- Grid de Memes -->
+        <div *ngIf="!isLoading && memes.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+          
+          <div *ngFor="let meme of memes" class="bg-white/5 rounded-lg overflow-hidden border border-white/10 hover:border-primary/50 transition-all group">
+            <!-- Imagen del meme -->
+            <div class="relative aspect-square bg-gray-800">
+              <img *ngIf="meme.imagen" [src]="meme.imagen" [alt]="meme.descripcion || 'Mi meme'" class="w-full h-full object-cover">
+              
+              <!-- Textos del meme superpuestos -->
+              <div class="absolute inset-0 flex flex-col justify-between items-center p-4 pointer-events-none">
+                <p *ngIf="meme.superior" class="text-white text-xl font-bold text-center uppercase" style="text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;">
+                  {{ meme.superior }}
+                </p>
+                <div></div>
+                <p *ngIf="meme.inferior" class="text-white text-xl font-bold text-center uppercase" style="text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;">
+                  {{ meme.inferior }}
+                </p>
+              </div>
+
+              <!-- Overlay con acciones -->
+              <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                <button (click)="deleteMeme(meme)" class="p-3 bg-red-500 hover:bg-red-600 text-white rounded-full transition-colors" title="Eliminar">
+                  <span class="material-symbols-outlined">delete</span>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Info del meme -->
+            <div class="p-4">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-white/50">{{ formatDate(meme.fecha) }}</span>
+                <button 
+                  (click)="toggleLike(meme)"
+                  class="flex items-center gap-1 px-2 py-1 rounded-full transition-colors"
+                  [ngClass]="isLiked(meme) ? 'text-red-400 bg-red-400/10' : 'text-white/50 hover:bg-white/10 hover:text-red-400'">
+                  <span class="material-symbols-outlined text-sm">
+                    {{ isLiked(meme) ? 'favorite' : 'favorite_border' }}
+                  </span>
+                  <span>{{ meme.reacciones?.length || 0 }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Stats -->
+        <div *ngIf="!isLoading && memes.length > 0" class="mt-8 p-4">
+          <div class="bg-white/5 rounded-lg p-6 border border-white/10">
+            <h3 class="text-white font-bold mb-4">Estadísticas</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div class="text-center">
+                <p class="text-3xl font-bold text-primary">{{ memes.length }}</p>
+                <p class="text-white/60 text-sm">Memes creados</p>
+              </div>
+              <div class="text-center">
+                <p class="text-3xl font-bold text-red-400">{{ getTotalLikes() }}</p>
+                <p class="text-white/60 text-sm">Likes totales</p>
+              </div>
+              <div class="text-center hidden sm:block">
+                <p class="text-3xl font-bold text-green-400">{{ getLatestMemeDate() }}</p>
+                <p class="text-white/60 text-sm">Último meme</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

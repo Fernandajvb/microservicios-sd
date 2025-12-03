@@ -6,47 +6,49 @@ import { MemesService, Meme } from '../../services/memes.service';
 import { ServiceStatusComponent } from '../service-status/service-status.component';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-my-memes',
   imports: [RouterLink, CommonModule, ServiceStatusComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  templateUrl: './my-memes.component.html',
+  styleUrl: './my-memes.component.css'
 })
-export class HomeComponent implements OnInit {
+export class MyMemesComponent implements OnInit {
   currentUser: Usuario | null = null;
   memes: Meme[] = [];
   isLoading: boolean = false;
+  errorMessage: string = '';
   userLikes: Set<number> = new Set();
 
   constructor(
     private authService: AuthService,
     private memesService: MemesService,
     private router: Router
-  ) {
-    // Suscribirse a cambios del usuario
-    this.authService.currentUser$.subscribe(user => {
-      this.currentUser = user;
-      if (user) {
-        this.loadUserLikes();
-      } else {
-        this.userLikes.clear();
-      }
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.loadMemes();
+    this.currentUser = this.authService.getCurrentUser();
+    
+    if (!this.currentUser) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.loadMyMemes();
   }
 
-  loadMemes(): void {
+  loadMyMemes(): void {
+    if (!this.currentUser) return;
+
     this.isLoading = true;
-    this.memesService.findAll().subscribe({
+    this.memesService.findByUser(this.currentUser.idUsuario).subscribe({
       next: (memes) => {
         this.memes = memes;
         this.isLoading = false;
+        this.loadUserLikes();
       },
       error: (error) => {
-        console.error('Error cargando memes:', error);
+        console.error('Error cargando mis memes:', error);
         this.isLoading = false;
+        this.errorMessage = 'Error al cargar tus memes';
       }
     });
   }
@@ -59,27 +61,22 @@ export class HomeComponent implements OnInit {
         this.userLikes = new Set(likedMemeIds);
       },
       error: (error) => {
-        console.error('Error cargando likes del usuario:', error);
+        console.error('Error cargando likes:', error);
       }
     });
   }
 
   toggleLike(meme: Meme): void {
-    if (!this.currentUser) {
-      this.router.navigate(['/login']);
-      return;
-    }
+    if (!this.currentUser) return;
 
     this.memesService.toggleLike(meme.idMeme, this.currentUser.idUsuario).subscribe({
       next: (result) => {
-        // Actualizar el estado local
         if (result.liked) {
           this.userLikes.add(meme.idMeme);
         } else {
           this.userLikes.delete(meme.idMeme);
         }
         
-        // Actualizar el contador de likes en el meme
         const memeIndex = this.memes.findIndex(m => m.idMeme === meme.idMeme);
         if (memeIndex !== -1) {
           this.memes[memeIndex] = {
@@ -98,16 +95,50 @@ export class HomeComponent implements OnInit {
     return this.userLikes.has(meme.idMeme);
   }
 
+  deleteMeme(meme: Meme): void {
+    if (!confirm('¿Estás seguro de que quieres eliminar este meme?')) {
+      return;
+    }
+
+    this.memesService.delete(meme.idMeme).subscribe({
+      next: () => {
+        this.memes = this.memes.filter(m => m.idMeme !== meme.idMeme);
+      },
+      error: (error) => {
+        console.error('Error eliminando meme:', error);
+        this.errorMessage = 'Error al eliminar el meme';
+      }
+    });
+  }
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
 
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
-  }
-
   getInitial(nombre: string | undefined): string {
     return nombre?.charAt(0)?.toUpperCase() || '?';
   }
+
+  formatDate(fecha: string): string {
+    return new Date(fecha).toLocaleDateString('es-ES', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    });
+  }
+
+  getTotalLikes(): number {
+    return this.memes.reduce((total, meme) => total + (meme.reacciones?.length || 0), 0);
+  }
+
+  getLatestMemeDate(): string {
+    if (this.memes.length === 0) return '-';
+    const latest = this.memes[0]; // Ya están ordenados por fecha desc
+    return new Date(latest.fecha).toLocaleDateString('es-ES', {
+      day: 'numeric',
+      month: 'short'
+    });
+  }
 }
+

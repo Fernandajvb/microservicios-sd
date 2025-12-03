@@ -1,18 +1,46 @@
 <div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
   
   <!-- Header -->
-  <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-b-[#393528] px-4 sm:px-6 md:px-10 py-3 sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm z-10">
-    <div class="flex items-center gap-4 text-gray-900 dark:text-white">
-      <button routerLink="/home" class="flex items-center justify-center rounded-full h-10 w-10 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors">
-        <span class="material-symbols-outlined">arrow_back</span>
-      </button>
-      <div class="size-6 text-primary">
-        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-          <path d="M39.5563 34.1455V13.8546C39.5563 15.708 36.8773 17.3437 32.7927 18.3189C30.2914 18.916 27.263 19.2655 24 19.2655C20.737 19.2655 17.7086 18.916 15.2073 18.3189C11.1227 17.3437 8.44365 15.708 8.44365 13.8546V34.1455C8.44365 35.9988 11.1227 37.6346 15.2073 38.6098C17.7086 39.2069 20.737 39.5564 24 39.5564C27.263 39.5564 30.2914 39.2069 32.7927 38.6098C36.8773 37.6346 39.5563 35.9988 39.5563 34.1455Z" fill="currentColor"></path>
-          <path clip-rule="evenodd" d="M10.4485 13.8519C10.4749 13.9271 10.6203 14.246 11.379 14.7361C12.298 15.3298 13.7492 15.9145 15.6717 16.3735C18.0007 16.9296 20.8712 17.2655 24 17.2655C27.1288 17.2655 29.9993 16.9296 32.3283 16.3735C34.2508 15.9145 35.702 15.3298 36.621 14.7361C37.3796 14.246 37.5251 13.9271 37.5515 13.8519C37.5287 13.7876 37.4333 13.5973 37.0635 13.2931C36.5266 12.8516 35.6288 12.3647 34.343 11.9175C31.79 11.0295 28.1333 10.4437 24 10.4437C19.8667 10.4437 16.2099 11.0295 13.657 11.9175C12.3712 12.3647 11.4734 12.8516 10.9365 13.2931C10.5667 13.5973 10.4713 13.7876 10.4485 13.8519ZM37.5563 18.7877C36.3176 19.3925 34.8502 19.8839 33.2571 20.2642C30.5836 20.9025 27.3973 21.2655 24 21.2655C20.6027 21.2655 17.4164 20.9025 14.7429 20.2642C13.1498 19.8839 11.6824 19.3925 10.4436 18.7877V34.1275C10.4515 34.1545 10.5427 34.4867 11.379 35.027C12.298 35.6207 13.7492 36.2054 15.6717 36.6644C18.0007 37.2205 20.8712 37.5564 24 37.5564C27.1288 37.5564 29.9993 37.2205 32.3283 36.6644C34.2508 36.2054 35.702 35.6207 36.621 35.027C37.4573 34.4867 37.5485 34.1546 37.5563 34.1275V18.7877ZM41.5563 13.8546V34.1455C41.5563 36.1078 40.158 37.5042 38.7915 38.3869C37.3498 39.3182 35.4192 40.0389 33.2571 40.5551C30.5836 41.1934 27.3973 41.5564 24 41.5564C20.6027 41.5564 17.4164 41.1934 14.7429 40.5551C12.5808 40.0389 10.6502 39.3182 9.20848 38.3869C7.84205 37.5042 6.44365 36.1078 6.44365 34.1455L6.44365 13.8546C6.44365 12.2684 7.37223 11.0454 8.39581 10.2036C9.43325 9.3505 10.8137 8.67141 12.343 8.13948C15.4203 7.06909 19.5418 6.44366 24 6.44366C28.4582 6.44366 32.5797 7.06909 35.657 8.13948C37.1863 8.67141 38.5667 9.3505 39.6042 10.2036C40.6278 11.0454 41.5563 12.2684 41.5563 13.8546Z" fill="currentColor" fill-rule="evenodd"></path>
-        </svg>
-      </div>
-      <h1 class="text-gray-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">MemeFactory</h1>
+  <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-4 sm:px-6 md:px-10 py-3 sticky top-0 bg-background-dark/80 backdrop-blur-sm z-10">
+    <div class="flex items-center gap-4 text-white">
+      <a routerLink="/" class="flex items-center gap-4 hover:opacity-80 transition-opacity">
+        <div class="size-6 text-primary">
+          <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"></path>
+          </svg>
+        </div>
+        <h1 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">MemeGen</h1>
+      </a>
+      <!-- Indicador de estado de servicios -->
+      <app-service-status></app-service-status>
+    </div>
+    <div class="flex flex-1 justify-end items-center gap-6 md:gap-8">
+      <nav class="hidden md:flex items-center gap-9">
+        <a routerLink="/generator" class="text-primary text-sm font-medium leading-normal">Generador</a>
+        <a routerLink="/home" class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors">Explorar</a>
+        <a routerLink="/my-memes" class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors">Mis Memes</a>
+      </nav>
+      <!-- Si está logueado: mostrar avatar y logout -->
+      <ng-container *ngIf="isLoggedIn()">
+        <div class="flex items-center gap-2">
+          <span class="text-white/70 text-sm hidden sm:block">{{ getCurrentUserName() }}</span>
+          <div class="bg-primary/20 text-primary flex items-center justify-center rounded-full size-10 border-2 border-primary/50 font-bold">
+            {{ getCurrentUserInitial() }}
+          </div>
+        </div>
+        <button (click)="logout()" class="p-2 rounded-full hover:bg-white/10 text-white/70 hover:text-red-400 transition-colors" title="Cerrar sesión">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+          </svg>
+        </button>
+      </ng-container>
+      
+      <!-- Si NO está logueado: mostrar botón de login -->
+      <ng-container *ngIf="!isLoggedIn()">
+        <a routerLink="/login" class="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-black font-medium hover:bg-primary/90 transition-colors">
+          Iniciar Sesión
+        </a>
+      </ng-container>
     </div>
   </header>
 
@@ -31,8 +59,8 @@
                 <span class="material-symbols-outlined !text-6xl">image</span>
               </div>
               <div class="flex max-w-[480px] flex-col items-center gap-2">
-                <p class="text-gray-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Selecciona una imagen para empezar</p>
-                <p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Elige una de las imágenes predefinidas de la galería o una plantilla popular para crear tu meme.</p>
+                <p class="text-gray-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Selecciona una plantilla para empezar</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Elige una plantilla de la comunidad o sube la tuya propia para crear tu meme.</p>
               </div>
             </div>
           }
@@ -59,24 +87,89 @@
       <!-- Right Section: Sidebar -->
       <div class="lg:col-span-1 flex flex-col gap-8">
         
+        <!-- Mensajes -->
+        <div *ngIf="errorMessage" class="p-3 rounded bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+          {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="p-3 rounded bg-green-500/10 border border-green-500/30 text-green-400 text-sm">
+          {{ successMessage }}
+        </div>
+
         <!-- 1. Elige tu Imagen -->
         <div class="bg-white dark:bg-[#27241b]/50 p-6 rounded-lg border border-gray-200 dark:border-[#393528]">
-          <h2 class="text-gray-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] pb-4">1. Elige tu Imagen</h2>
-          <div class="flex flex-col gap-4">
-            <div class="grid grid-cols-3 gap-2">
-              @for (template of templates; track template.id) {
-                <button 
-                  (click)="selectTemplate(template)"
-                  [class.ring-primary]="selectedImage === template.url"
-                  class="aspect-square bg-gray-200 dark:bg-gray-800 rounded-md overflow-hidden ring-2 ring-transparent hover:ring-primary focus:ring-primary focus:outline-none transition-all">
-                  <img [alt]="template.alt" class="w-full h-full object-cover" [src]="template.url"/>
-                </button>
-              }
-              <button class="aspect-square bg-gray-200 dark:bg-gray-800 rounded-md overflow-hidden ring-2 ring-transparent hover:ring-primary focus:ring-primary focus:outline-none transition-all flex items-center justify-center text-gray-500 dark:text-gray-400">
-                <span class="material-symbols-outlined">more_horiz</span>
+          <div class="flex items-center justify-between pb-4">
+            <h2 class="text-gray-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">1. Elige tu Imagen</h2>
+            <button 
+              *ngIf="isLoggedIn()"
+              (click)="toggleUploadForm()"
+              class="text-xs bg-primary/20 text-primary px-3 py-1 rounded-full hover:bg-primary/30 transition-colors">
+              {{ showUploadForm ? 'Cancelar' : '+ Subir Plantilla' }}
+            </button>
+          </div>
+
+          <!-- Formulario para subir plantilla -->
+          <div *ngIf="showUploadForm" class="mb-4 p-4 bg-black/20 rounded-lg border border-primary/30">
+            <p class="text-white text-sm font-medium mb-3">Subir nueva plantilla</p>
+            <div class="flex flex-col gap-3">
+              <input 
+                [(ngModel)]="nuevaPlantillaNombre"
+                type="text"
+                placeholder="Nombre de la plantilla"
+                class="w-full px-3 py-2 rounded bg-black/30 border border-gray-700 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-primary"
+              />
+              <input 
+                [(ngModel)]="nuevaPlantillaUrl"
+                type="text"
+                placeholder="URL de la imagen"
+                class="w-full px-3 py-2 rounded bg-black/30 border border-gray-700 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-primary"
+              />
+              <input 
+                [(ngModel)]="nuevaPlantillaDescripcion"
+                type="text"
+                placeholder="Descripción (opcional)"
+                class="w-full px-3 py-2 rounded bg-black/30 border border-gray-700 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-primary"
+              />
+              <button 
+                (click)="uploadPlantilla()"
+                [disabled]="isUploadingPlantilla || !nuevaPlantillaNombre || !nuevaPlantillaUrl"
+                class="w-full py-2 bg-primary text-black font-bold text-sm rounded hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                {{ isUploadingPlantilla ? 'Subiendo...' : 'Subir Plantilla' }}
               </button>
             </div>
-            <a class="text-center text-sm text-primary hover:underline" href="#">O elige una plantilla popular</a>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            
+            <!-- Loading -->
+            <div *ngIf="isLoading" class="flex justify-center py-4">
+              <svg class="animate-spin h-6 w-6 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </div>
+
+            <!-- Sin plantillas -->
+            <div *ngIf="!isLoading && plantillas.length === 0" class="text-center py-8">
+              <span class="material-symbols-outlined text-4xl text-gray-500 mb-2">collections</span>
+              <p class="text-gray-500 text-sm">No hay plantillas disponibles</p>
+              <p class="text-gray-600 text-xs mt-1">¡Sé el primero en subir una!</p>
+            </div>
+
+            <!-- Plantillas de la comunidad -->
+            <div *ngIf="!isLoading && plantillas.length > 0">
+              <p class="text-gray-600 dark:text-gray-400 text-xs mb-2">Plantillas de la comunidad:</p>
+              <div class="grid grid-cols-3 gap-2">
+                <button *ngFor="let plantilla of plantillas"
+                  (click)="selectTemplate(plantilla)"
+                  [class.ring-primary]="selectedImage === plantilla.imagen"
+                  class="aspect-square bg-gray-200 dark:bg-gray-800 rounded-md overflow-hidden ring-2 ring-transparent hover:ring-primary focus:ring-primary focus:outline-none transition-all relative group">
+                  <img [alt]="plantilla.nombre" class="w-full h-full object-cover" [src]="plantilla.imagen"/>
+                  <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-1">
+                    <span class="text-white text-[10px] truncate w-full">{{ plantilla.nombre }}</span>
+                  </div>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -109,19 +202,22 @@
         <div class="bg-white dark:bg-[#27241b]/50 p-6 rounded-lg border border-gray-200 dark:border-[#393528]">
           <h2 class="text-gray-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] pb-4">3. Finalizar</h2>
           <div class="flex flex-col gap-3">
+            
+            <!-- Mensaje si no está logueado -->
+            <div *ngIf="!isLoggedIn()" class="p-3 rounded bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-sm mb-2">
+              <a routerLink="/login" class="underline hover:text-yellow-300">Inicia sesión</a> para guardar tus memes
+            </div>
+
             <button 
-              (click)="saveAndDownload()"
-              [disabled]="!selectedImage"
-              class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-              <span class="material-symbols-outlined mr-2">save</span>
-              <span class="truncate">Guardar y Descargar Meme</span>
-            </button>
-            <button 
-              (click)="downloadOnly()"
-              [disabled]="!selectedImage"
-              class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-green-600 text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-              <span class="material-symbols-outlined mr-2">download</span>
-              <span class="truncate">Solo Descargar Meme</span>
+              (click)="saveMeme()"
+              [disabled]="!selectedImage || isSaving || !isLoggedIn()"
+              class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-primary text-black text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+              <span *ngIf="!isSaving" class="material-symbols-outlined mr-2">cloud_upload</span>
+              <svg *ngIf="isSaving" class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span class="truncate">{{ isSaving ? 'Subiendo...' : 'Subir Meme' }}</span>
             </button>
             <button 
               (click)="cancel()"
