@@ -15,24 +15,24 @@ export class ProxyService {
   private readonly services: Record<string, ServiceConfig> = {
     auth: {
       name: 'Auth',
-      primary: 'http://localhost:3001',
+      primary: process.env.AUTH_URL ?? 'http://localhost:3001',
       healthPath: '/auth/register', // Endpoint que existe
     },
     users: {
       name: 'Users',
-      primary: 'http://localhost:3002',
+      primary: process.env.USERS_URL ?? 'http://localhost:3002',
       healthPath: '/users',
     },
     memes: {
       name: 'Memes',
-      primary: 'http://localhost:3003',
-      mirror: 'http://localhost:3013',
+      primary: process.env.MEMES_URL ?? 'http://localhost:3003',
+      mirror: process.env.MEMES_MIRROR_URL ?? 'http://localhost:3013',
       healthPath: '/memes',
     },
     plantillas: {
       name: 'Plantillas',
-      primary: 'http://localhost:3004',
-      mirror: 'http://localhost:3014',
+      primary: process.env.PLANTILLAS_URL ?? 'http://localhost:3004',
+      mirror: process.env.PLANTILLAS_MIRROR_URL ?? 'http://localhost:3014',
       healthPath: '/plantillas',
     },
   };

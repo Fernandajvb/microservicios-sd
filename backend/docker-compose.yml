@@ -1,0 +1,120 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: generador_memes_db
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: generador_memes
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  gateway:
+    build:
+      context: .
+      args:
+        APP_NAME: backend
+    container_name: memes_gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - AUTH_URL=http://auth:3001
+      - USERS_URL=http://users:3002
+      - MEMES_URL=http://memes:3003
+      - MEMES_MIRROR_URL=http://memes_mirror:3013
+      - PLANTILLAS_URL=http://plantillas:3004
+      - PLANTILLAS_MIRROR_URL=http://plantillas_mirror:3014
+    depends_on:
+      - auth
+      - users
+      - memes
+      - plantillas
+
+  auth:
+    build:
+      context: .
+      args:
+        APP_NAME: auth
+    container_name: memes_auth
+    environment:
+      - PORT=3001
+      - DATABASE_URL=mysql://root:@db:3306/generador_memes
+    depends_on:
+      db:
+        condition: service_healthy
+
+  users:
+    build:
+      context: .
+      args:
+        APP_NAME: users
+    container_name: memes_users
+    environment:
+      - PORT=3002
+      - DATABASE_URL=mysql://root:@db:3306/generador_memes
+    depends_on:
+      db:
+        condition: service_healthy
+
+  memes:
+    build:
+      context: .
+      args:
+        APP_NAME: memes
+    container_name: memes_memes
+    environment:
+      - PORT=3003
+      - DATABASE_URL=mysql://root:@db:3306/generador_memes
+    depends_on:
+      db:
+        condition: service_healthy
+
+  plantillas:
+    build:
+      context: .
+      args:
+        APP_NAME: plantillas
+    container_name: memes_plantillas
+    environment:
+      - PORT=3004
+      - DATABASE_URL=mysql://root:@db:3306/generador_memes
+    depends_on:
+      db:
+        condition: service_healthy
+
+  memes_mirror:
+    build:
+      context: .
+      args:
+        APP_NAME: memes_mirror
+    container_name: memes_memes_mirror
+    environment:
+      - PORT=3013
+      - DATABASE_URL=mysql://root:@db:3306/generador_memes
+    depends_on:
+      db:
+        condition: service_healthy
+
+  plantillas_mirror:
+    build:
+      context: .
+      args:
+        APP_NAME: plantillas_mirror
+    container_name: memes_plantillas_mirror
+    environment:
+      - PORT=3014
+      - DATABASE_URL=mysql://root:@db:3306/generador_memes
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
